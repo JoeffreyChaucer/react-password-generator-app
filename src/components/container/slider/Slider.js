@@ -42,7 +42,7 @@ const Slider = (props) => {
           min={min}
           max={max}
           value={value}
-          defaultLength={defaultLength}
+          defaultlength={defaultLength}
           onChange={handleOnChange(max)}
           style={styleInput}
         />
