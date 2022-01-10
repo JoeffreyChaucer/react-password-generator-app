@@ -5,8 +5,18 @@ import './Slider.css';
 const Slider = (props) => {
   const { step, min, max, value, defaultLength, onChangeValue } = props;
 
+  const activeRangeColor = '#4aa1f3';
+  const rangeBackground = '#d7dcdf';
+
   const handleOnChange = (max) => (e) => {
     onChangeValue(e);
+  };
+
+  const progressValue = defaultLength;
+
+  const progress = (progressValue / max) * 100 + '%';
+  const styleInput = {
+    background: `linear-gradient(90deg, ${activeRangeColor} 0% ${progress}, ${rangeBackground} ${progress} 100%)`,
   };
 
   return (
@@ -21,6 +31,7 @@ const Slider = (props) => {
           value={value}
           defaultLength={defaultLength}
           onChange={handleOnChange(max)}
+          style={styleInput}
         />
         <span className='range-slider-value'>10</span>
       </div>
