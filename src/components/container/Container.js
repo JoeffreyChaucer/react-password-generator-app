@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from './button/Button.js';
 import './Container.css';
 import Slider from './slider/Slider.js';
@@ -32,8 +32,10 @@ const CHECKBOX_LIST = [
 ];
 
 const Container = () => {
+  const [rangeValue, setRangeValue] = useState(12);
+
   const onChangeSlider = (e) => {
-    console.log(e.target.value);
+    setRangeValue(e.target.value);
   };
 
   const onChangeCheckBox = (e) => {
@@ -46,12 +48,13 @@ const Container = () => {
       <div className='row'>
         <div className='col-md-12'>
           <div className='form-group'>
+            &nbsp;
             <Slider
               min={1}
               max={60}
               step={1}
-              value={10}
-              defaultLength={10}
+              value={parseInt(rangeValue, 10)}
+              defaultLength={parseInt(rangeValue, 10)}
               onChangeValue={onChangeSlider}
             />
           </div>
