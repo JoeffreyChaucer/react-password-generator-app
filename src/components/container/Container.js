@@ -52,7 +52,6 @@ const Container = () => {
       }
       return '';
     });
-    console.log(CHECKBOX_LIST);
   };
 
   return (
