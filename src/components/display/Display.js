@@ -3,11 +3,13 @@ import './Display.css';
 import { Container } from '../container/Container';
 import Button from '../container/button/Button';
 import { generatePassword, copyToClipBoard } from '../../utils/Helper';
+import Tooltip from '../container/tooltip/Tooltip.js';
 
 const Display = () => {
   const [password, setPassword] = useState('');
   const [range, setRange] = useState();
   const [passwordProps, setPasswordProps] = useState();
+  const [tooltip, setTooltip] = useState(false);
   const passwordRef = useRef(null);
   let pwdDescription = '';
 
@@ -20,6 +22,10 @@ const Display = () => {
   const copyClipBoard = (e) => {
     e.preventDefault();
     copyToClipBoard(passwordRef.current);
+    setTooltip(true);
+    setTimeout(() => {
+      setTooltip(false);
+    }, 1000);
   };
 
   const setBackgroundColor = (password) => {
@@ -72,6 +78,11 @@ const Display = () => {
               className='generate-btn'
               iconClass='fas fa-sync'
               handleClick={() => generateNewPassword()}
+            />
+            <Tooltip
+              message='Copied'
+              position='left'
+              displayTooltip={tooltip}
             />
           </div>
         </div>
