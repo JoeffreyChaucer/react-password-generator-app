@@ -43,6 +43,9 @@ const Container = (props) => {
     numbers: true,
   });
 
+  const [checked, setChecked] = useState(false);
+  const [checkedName, setCheckedName] = useState('');
+
   const { uppercase, lowercase, symbols, numbers } = checkBox;
 
   useEffect(() => {
@@ -50,9 +53,24 @@ const Container = (props) => {
     setRange(rangeValue);
     setRangeValue(rangeValue);
     passwordGenerated(checkBox, rangeValue);
+    checkBoxCount();
 
     //eslint-disable-next-line
   }, [uppercase, lowercase, symbols, numbers]);
+
+  const checkBoxCount = () => {
+    const checkedCount = Object.keys(checkBox).filter((key) => checkBox[key]);
+    const disabled = checkedCount.length === 1;
+    const name = checkedCount[0];
+
+    if (disabled) {
+      setChecked(disabled);
+      setCheckedName(name);
+    } else {
+      setChecked(false);
+      setCheckedName('');
+    }
+  };
 
   const passwordGenerated = (checkBox, rangeValue) => {
     const pwd = generatePassword(checkBox, rangeValue);
@@ -110,7 +128,9 @@ const Container = (props) => {
                 value={checkBox.isChecked}
                 checked={checkBox.isChecked}
                 onChange={onChangeCheckBox}
-                disabled={false}
+                disabled={
+                  checked && checkBox.isChecked && checkedName === checkBox.name
+                }
               />
             ))}
           </div>
