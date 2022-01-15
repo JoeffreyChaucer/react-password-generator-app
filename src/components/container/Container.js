@@ -3,7 +3,11 @@ import Button from './button/Button.js';
 import './Container.css';
 import Slider from './slider/Slider.js';
 import CheckBox from './checkbox/CheckBox.js';
-import { generatePassword, setPasswordLength } from '../../utils/Helper.js';
+import {
+  copyToClipBoard,
+  generatePassword,
+  setPasswordLength,
+} from '../../utils/Helper.js';
 
 const CHECKBOX_LIST = [
   {
@@ -33,7 +37,7 @@ const CHECKBOX_LIST = [
 ];
 
 const Container = (props) => {
-  const { setPassword, setRange, setPasswordProps } = props;
+  const { setPassword, setRange, setPasswordProps, passwordRef } = props;
 
   const [rangeValue, setRangeValue] = useState(12);
   const [checkBox, setCheckBox] = useState({
@@ -83,6 +87,11 @@ const Container = (props) => {
     setRangeValue(e.target.value);
     setRange(e.target.value);
     passwordGenerated(checkBox, e.target.value);
+  };
+
+  const copyClipBoard = (elementalRef) => (e) => {
+    e.preventDefault();
+    copyToClipBoard(elementalRef);
   };
 
   const onChangeCheckBox = (e) => {
@@ -139,7 +148,11 @@ const Container = (props) => {
       <div className='text-center'>
         <div className='row'>
           <div className='col-md-12'>
-            <Button className='btn password-btn' label='Copy Password' />
+            <Button
+              className='btn password-btn'
+              label='Copy Password'
+              handleClick={copyClipBoard(passwordRef.current)}
+            />
           </div>
         </div>
       </div>
