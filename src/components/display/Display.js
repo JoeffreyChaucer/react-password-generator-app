@@ -10,6 +10,7 @@ const Display = () => {
   const [range, setRange] = useState();
   const [passwordProps, setPasswordProps] = useState();
   const [tooltip, setTooltip] = useState(false);
+  const [type, setType] = useState('password');
   const passwordRef = useRef(null);
   let pwdDescription = '';
 
@@ -43,8 +44,24 @@ const Display = () => {
       return '#cb473e';
     }
   };
+
+  const onSelectTag = (e) => {
+    setType(e.target.value);
+  };
   return (
     <>
+      <div style={{ maxWidth: '1100px', margin: 'auto' }}>
+        <select
+          name='type'
+          value={type}
+          onChange={onSelectTag}
+          className='form-control form-control-sm'
+          style={selectTagStyle}
+        >
+          <option value='password'>Random Password</option>
+          <option value='pin'>Pin</option>
+        </select>
+      </div>
       <div className='row'>
         <div
           className='col-12 password-display-container'
@@ -89,6 +106,7 @@ const Display = () => {
       </div>
 
       <Container
+        type={type}
         setPassword={setPassword}
         setRange={setRange}
         setPasswordProps={setPasswordProps}
@@ -96,6 +114,13 @@ const Display = () => {
       />
     </>
   );
+};
+
+const selectTagStyle = {
+  backgroundColor: 'inherit',
+  color: '#506175',
+  width: '20%',
+  height: 'auto',
 };
 
 export default Display;
